@@ -227,7 +227,11 @@ extern _OBSTACK_SIZE_T _obstack_memory_used (struct obstack *)
    more memory.  This can be set to a user defined function which
    should either abort gracefully or use longjump - but shouldn't
    return.  The default action is to print a message and abort.  */
-extern __attribute_noreturn__ void (*obstack_alloc_failed_handler) (void);
+//extern __attribute_noreturn__ void (*obstack_alloc_failed_handler) (void);
+#ifndef obstack_alloc_failed_handler
+extern __attribute__((noreturn)) void (*obstack_alloc_failed_handler)(void);
+#endif
+
 
 /* Exit value used when 'print_and_abort' is used.  */
 extern int obstack_exit_failure;

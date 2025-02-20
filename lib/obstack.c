@@ -76,6 +76,12 @@
                                MAX (sizeof (uintmax_t),			      \
                                     sizeof (void *)))
 
+__attribute__((noreturn)) void obstack_default_failed_handler(void) {
+    abort();
+}
+
+__attribute__((noreturn)) void (*obstack_alloc_failed_handler)(void) = obstack_default_failed_handler;
+
 /* Call functions with either the traditional malloc/free calling
    interface, or the mmalloc/mfree interface (that adds an extra first
    argument), based on the value of use_extra_arg.  */
@@ -348,7 +354,7 @@ print_and_abort (void)
    abort gracefully or use longjump - but shouldn't return.  This
    variable by default points to the internal function
    'print_and_abort'.  */
-__attribute_noreturn__ void (*obstack_alloc_failed_handler) (void)
-  = print_and_abort;
+// __attribute_noreturn__ void (*obstack_alloc_failed_handler) (void)
+//   = print_and_abort;
 # endif /* !_OBSTACK_NO_ERROR_HANDLER */
 #endif /* !_OBSTACK_ELIDE_CODE */
